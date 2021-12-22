@@ -29,3 +29,83 @@ kXR_locate = 3027
 kXR_truncate = 3028
 kXR_writev = 3031
 kXR_fattr = 3032
+
+kXR_ok = 0
+kXR_oksofar = 4000
+kXR_attn = 4001
+kXR_authmore = 4002
+kXR_error = 4003
+kXR_redirect = 4004
+kXR_wait = 4005
+kXR_waitresp = 4006
+
+kXR_asyncab = 5000
+kXR_asyncdi = 5001
+kXR_asyncms = 5002
+kXR_asyncrd = 5003
+kXR_asyncwt = 5004
+kXR_asyncav = 5005
+kXR_asynunav = 5006
+kXR_asyncgo = 5007
+kXR_asynrsp = 5008
+
+kXR_fullurl = 1
+kXR_multipr = 3
+kXR_readrdok = 4
+
+Ability = 0
+
+kXR_asyncap = 128
+
+kXR_vfs = 1
+
+kXR_QStats = 1
+kXR_QPrep = 2
+kXR_Qcksum = 3
+kXR_Qxattr = 4
+kXR_Qspace = 5
+kXR_Qckscan = 6
+kXR_Qconf = 7
+kXR_Qvisa = 8
+
+
+kXR_mkdirp = 1
+kXR_online = 1
+kXR_dstat = 2
+kXR_dcksm = 4
+
+kXR_compress = 1
+kXR_delete = 2
+kXR_force = 4
+kXR_new = 8
+kXR_open_read = 16
+kXR_open_updt = 32
+
+kXR_async = 64
+kXR_refresh = 128
+kXR_mkpath = 256
+kXR_prefname = 256
+kXR_addpeers = 512
+kXR_retstat = 1024
+kXR_replica = 2048
+kXR_posc = 4096
+kXR_nowait = 8192
+
+kXR_cancel = 1
+kXR_notify = 2
+kXR_noerrs = 4
+kXR_stage = 8
+kXR_wmode = 16
+kXR_coloc = 32
+kXR_fresh = 64
+kXR_usetcp = 128
+
+kXR_doSync = 1
+
+KXR_file = 0
+KXR_xset = 1
+KXR_isDir = 2
+KXR_other = 4
+KXR_offline = 8
+
+KXR_secreqs = 1
