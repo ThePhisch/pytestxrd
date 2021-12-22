@@ -6,14 +6,9 @@ from definitions import request_codes, general_vals
 import os
 from functools import reduce
 
-# hardcoded for now
-LHOST = "taylor.fritz.box"
-LPORT = 1094
-
-
 @contextmanager
 def connect_xrootd(
-    host: str = LHOST, port: int = LPORT
+    host: str, port: int
 ) -> ContextManager[socket.socket]:
     s: socket.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     s.connect((host, port))  # Connect
