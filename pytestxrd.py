@@ -9,7 +9,7 @@ import os
 hostname, port = cli_args()
 
 with connect_xrootd(hostname, port) as s:
-    ui = UI(hostname, port)
+    ui = UI(hostname, port, s)
     while True:
         try:
             ui.prompt()
