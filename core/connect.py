@@ -6,10 +6,9 @@ from definitions import request_codes, general_vals
 import os
 from functools import reduce
 
+
 @contextmanager
-def connect_xrootd(
-    host: str, port: int
-) -> ContextManager[socket.socket]:
+def connect_xrootd(host: str, port: int) -> type[socket.socket]:
     s: socket.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     s.connect((host, port))  # Connect
 
@@ -24,7 +23,7 @@ def connect_xrootd(
         pack(
             "!L", os.getpid()
         ),  # Spec says this should be signed, but perl is unsigned
-        pack("8s", os.getenv("USER").encode("UTF-(")),
+        pack("8s", os.getenv("USER").encode("UTF-8")),
         pack("!H", request_codes.Ability),
         pack("B", request_codes.kXR_asyncap | 4),  # Unsigned Char
         pack("B", 0),
