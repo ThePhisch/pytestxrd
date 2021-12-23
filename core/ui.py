@@ -3,6 +3,7 @@ import socket
 
 import functions
 from functions.mv import Mv
+from functions.ping import Ping
 from functions.testfunc import Testfunc
 from core.connect import login
 
@@ -30,6 +31,8 @@ class UI:
         match command.split():
             case ["mv", *args]:
                 obj = Mv(args, self.socket)
+            case ["ping", *args]:
+                obj = Ping(args, self.socket)
             case ["testfunc", *args]:
                 obj = Testfunc(args, self.socket)
             case ["help"] | ["help", _]:

@@ -1,0 +1,42 @@
+import logging
+import socket
+from definitions import general_vals, request_codes
+from functions.function_baseclass import Pytestxrd_Base_Function
+from core.connect import send
+from functools import reduce
+
+class Ping(Pytestxrd_Base_Function):
+    """
+    Implements the mv function
+    """
+
+    @staticmethod
+    def help_str() -> str:
+        return "ping"
+
+    def __init__(self, args: list[str], socket: socket.socket) -> None:
+        super().__init__(socket)
+        if len(args) != 0:
+            extra_args = ", ".join(args) 
+            print(f"Extraneous ping arguments - {extra_args}")
+            return
+        else:
+            self.run()
+
+    def run(self) -> None:
+        """
+        Ping the server
+        """
+        args = (
+            request_codes.kXR_ping,
+            b"\0"*16,
+            0,
+        )
+        send(
+            self.socket,
+            f"!H16sl",
+            args
+        )
+
+        if self.check_response_ok():
+            logging.info("ping succeeded.")
