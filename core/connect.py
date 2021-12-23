@@ -21,6 +21,16 @@ def connect_xrootd(host: str, port: int) -> Generator[socket.socket, None, None]
 
     logging.info(f"h/s response: si={sid} rq={status} ln={rlen} vn={pval} st={flag}")
 
+
+    # yield the socket object, handle closing.
+    try:
+        yield s
+    finally:
+        s.shutdown(socket.SHUT_WR)
+        s.close()
+
+
+def login(s: socket.socket) -> str:
     # Login
     # Typed out for better understanding
     to_send: tuple[bytes, ...] = (
@@ -29,7 +39,7 @@ def connect_xrootd(host: str, port: int) -> Generator[socket.socket, None, None]
         pack(
             "!L", os.getpid()
         ),  # Spec says this should be signed, but perl is unsigned
-        pack("8s", os.getenv("USER").encode("UTF-8")), # type: ignore
+        pack("8s", os.getenv("USER").encode("UTF-8")),  # type: ignore
         pack("!H", request_codes.Ability),
         pack("B", request_codes.kXR_asyncap | 4),  # Unsigned Char
         pack("B", 0),
@@ -38,10 +48,9 @@ def connect_xrootd(host: str, port: int) -> Generator[socket.socket, None, None]
 
     s.send(reduce(lambda x, y: x + y, to_send))
     logging.debug("Sending login.")
-
-    # yield the socket object, handle closing.
-    try:
-        yield s
-    finally:
-        s.shutdown(socket.SHUT_WR)
-        s.close()
+    data = s.recv(8)
+    (sid, reqcode, slenplus) = unpack("!HHl", data)
+    logging.debug(f"Streamid={sid}, Response Code={reqcode}, slen+16={slenplus}")
+    logging.debug("Receiving Session ID and Sec now")
+    data = s.recv(16)
+    return data.hex()

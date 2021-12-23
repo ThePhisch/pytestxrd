@@ -4,9 +4,12 @@ from definitions import general_vals, request_codes
 from functions.function_baseclass import Pytestxrd_Base_Function
 
 class Mv(Pytestxrd_Base_Function):
+    """
+    Implements the mv function
+    """
 
-    @classmethod
-    def help_str(cls) -> str:
+    @staticmethod
+    def help_str() -> str:
         return "mv <old_path> <new_path>"
 
     def __init__(self, args: list[str], socket: socket.socket) -> None:

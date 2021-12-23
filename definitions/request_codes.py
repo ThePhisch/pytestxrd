@@ -1,3 +1,7 @@
+"""
+xrootd Request-Codes
+"""
+
 kXR_auth = 3000
 kXR_query = 3001
 kXR_chmod = 3002

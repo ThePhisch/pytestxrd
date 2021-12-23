@@ -4,6 +4,7 @@ import socket
 import functions
 from functions.mv import Mv
 from functions.testfunc import Testfunc
+from core.connect import login
 
 class UI:
     """
@@ -13,11 +14,12 @@ class UI:
     Also includes logic on which command to execute
     """
 
-    def __init__(self, hostname: str, port: int, socket: socket.socket) -> None:
+    def __init__(self, hostname: str, port: int, session_id: str, socket: socket.socket) -> None:
         self.hostname = hostname
         self.port = port
         self.socket = socket
-        print(f"Login PID: {os.getpid()} Session ID: <not implemented>")
+        self.session_id = session_id
+        print(f"Login PID: {os.getpid()} Session ID: {self.session_id}")
         return
 
     def prompt(self) -> None:
