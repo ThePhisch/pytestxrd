@@ -2,6 +2,7 @@ import os
 import socket
 
 import functions
+from functions.chmod import Chmod
 from functions.mv import Mv
 from functions.ping import Ping
 from functions.testfunc import Testfunc
@@ -33,6 +34,8 @@ class UI:
                 obj = Mv(args, self.socket)
             case ["ping", *args]:
                 obj = Ping(args, self.socket)
+            case ["chmod", *args]:
+                obj = Chmod(args, self.socket)
             case ["testfunc", *args]:
                 obj = Testfunc(args, self.socket)
             case ["help"] | ["help", _]:

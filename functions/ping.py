@@ -7,7 +7,7 @@ from functools import reduce
 
 class Ping(Pytestxrd_Base_Function):
     """
-    Implements the mv function
+    Implements the ping function
     """
 
     @staticmethod

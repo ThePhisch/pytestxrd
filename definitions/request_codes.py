@@ -113,3 +113,35 @@ KXR_other = 4
 KXR_offline = 8
 
 KXR_secreqs = 1
+
+# kXR_ur = b"\x01\x00"
+# kXR_uw = b"\x00\x80"
+# kXR_ux = b"\x00\x40"
+# kXR_gr = b"\x00\x20"
+# kXR_gw = b"\x00\x10"
+# kXR_gx = b"\x00\x08"
+# kXR_or = b"\x00\x04"
+# kXR_ow = b"\x00\x02"
+# kXR_ox = b"\x00\x01"
+
+kXR_ur = 256
+kXR_uw = 128
+kXR_ux = 64
+kXR_gr = 32
+kXR_gw = 16
+kXR_gx = 8
+kXR_or = 4
+kXR_ow = 2
+kXR_ox = 1
+
+kXR_mode: tuple[int, ...] = (
+    256,
+    128,
+    64,
+    32,
+    16,
+    8,
+    4,
+    2,
+    1,
+) # 0 -> 9
