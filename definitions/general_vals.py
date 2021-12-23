@@ -1,5 +1,5 @@
 defaultPort = 1094
-StreamID = 0
+StreamID = 42 
 needSecurity = 0
 VERBOSE = 0
 doRootd = 0

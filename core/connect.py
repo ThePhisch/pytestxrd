@@ -1,7 +1,7 @@
 from contextlib import contextmanager
 import socket
 from struct import pack, unpack
-from typing import Generator
+from typing import Any, Generator
 from definitions import request_codes, general_vals
 import os
 from functools import reduce
@@ -20,7 +20,6 @@ def connect_xrootd(host: str, port: int) -> Generator[socket.socket, None, None]
     (sid, status, rlen, pval, flag) = unpack("!HHlll", data)
 
     logging.info(f"h/s response: si={sid} rq={status} ln={rlen} vn={pval} st={flag}")
-
 
     # yield the socket object, handle closing.
     try:
@@ -54,3 +53,10 @@ def login(s: socket.socket) -> str:
     logging.debug("Receiving Session ID and Sec now")
     data = s.recv(16)
     return data.hex()
+
+
+def send(s: socket.socket, format: str, args: tuple[Any, ...]) -> None:
+    packed_stream_ID: bytes = pack("!H", general_vals.StreamID)
+    packed_args = pack(format, *args)
+    s.sendall(packed_stream_ID + packed_args)
+    return
