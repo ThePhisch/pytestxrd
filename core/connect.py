@@ -8,12 +8,19 @@ from functools import reduce
 
 
 @contextmanager
-def connect_xrootd(host: str, port: int) -> type[socket.socket]:
+def connect_xrootd(host: str, port: int, debug: bool) -> type[socket.socket]:
     s: socket.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     s.connect((host, port))  # Connect
 
     # Initial Handshake
     s.send(pack("!LLLLL", 0, 0, 0, 4, 2012))
+    data = s.recv(16)
+    (sid, status, rlen, pval, flag) = unpack("!HHlll", data)
+
+    if debug:
+        print(f"h/s response: si={sid} rq={status} ln={rlen} vn={pval} st={flag}")
+
+
 
     # Login
     # Typed out for better understanding
@@ -31,6 +38,8 @@ def connect_xrootd(host: str, port: int) -> type[socket.socket]:
     )
 
     s.send(reduce(lambda x, y: x + y, to_send))
+
+    # yield the socket object, handle closing.
     try:
         yield s
     finally:

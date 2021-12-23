@@ -13,7 +13,7 @@ class UI:
     Also includes logic on which command to execute
     """
 
-    def __init__(self, hostname: str, port: int, socket: type[socket.socket]) -> None:
+    def __init__(self, hostname: str, port: int, debug: bool, socket: type[socket.socket]) -> None:
         self.hostname = hostname
         self.port = port
         self.socket = socket

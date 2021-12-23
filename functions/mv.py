@@ -15,14 +15,14 @@ class Mv(Pytestxrd_Base_Function):
             case [oldp, newp]:
                 print(f"This will work out. {oldp} -> {newp}")
                 self.oldp = oldp
-                self.newp = newp
+                self.newp = newp + "X" # to counteract truncation
                 self.run()
             case _:
                 print(f"Check number of arguments: {len(args)}/2 args given")
 
     def run(self) -> None:
         plen = len(self.oldp + self.newp)
-        self.socket.send(
+        self.socket.sendall(
             pack(
                 f"!HH14sHl{plen}s",
                 general_vals.StreamID,
@@ -33,5 +33,4 @@ class Mv(Pytestxrd_Base_Function):
                 f"{self.oldp} {self.newp}".encode("UTF-8")
             )
         )
-        # data = self.socket.recv(1024)
-        # print(repr(data))
+        time.sleep(1.5)

@@ -6,10 +6,10 @@ from core.args import cli_args
 from core.ui import UI
 import os
 
-hostname, port = cli_args()
+args_passed = cli_args()
 
-with connect_xrootd(hostname, port) as s:
-    ui = UI(hostname, port, s)
+with connect_xrootd(*args_passed) as s:
+    ui = UI(*args_passed, s)
     while True:
         try:
             ui.prompt()
