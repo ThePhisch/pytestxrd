@@ -9,7 +9,7 @@ class Mv(Pytestxrd_Base_Function):
     def help_str(cls) -> str:
         return "mv <old_path> <new_path>"
 
-    def __init__(self, args: list[str], socket: type[socket.socket]) -> None:
+    def __init__(self, args: list[str], socket: socket.socket) -> None:
         super().__init__(socket)
         match args:
             case [oldp, newp]:
@@ -32,5 +32,4 @@ class Mv(Pytestxrd_Base_Function):
                 plen,
                 f"{self.oldp} {self.newp}".encode("UTF-8")
             )
-        )
-        time.sleep(1.5)
+        ) # type: ignore

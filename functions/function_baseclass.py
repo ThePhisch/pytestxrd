@@ -7,7 +7,7 @@ class Pytestxrd_Base_Function():
     def help_str(cls) -> str:
         return "Help has not been defined for this function."
 
-    def __init__(self, socket: type[socket.socket]) -> None:
+    def __init__(self, socket: socket.socket) -> None:
         self.socket = socket
 
     def run(self) -> None:
