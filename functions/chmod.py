@@ -12,7 +12,7 @@ class Chmod(Pytestxrd_Base_Function):
 
     @staticmethod
     def help_str() -> str:
-        return "chmod <mode> <path>"
+        return "chmod\t<mode> <path>"
 
     def __init__(self, args: list[str], socket: socket.socket) -> None:
         super().__init__(socket)

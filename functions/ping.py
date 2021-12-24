@@ -12,7 +12,7 @@ class Ping(Pytestxrd_Base_Function):
 
     @staticmethod
     def help_str() -> str:
-        return "ping"
+        return "ping\t"
 
     def __init__(self, args: list[str], socket: socket.socket) -> None:
         super().__init__(socket)

@@ -11,7 +11,7 @@ class Mv(Pytestxrd_Base_Function):
 
     @staticmethod
     def help_str() -> str:
-        return "mv <old_path> <new_path>"
+        return "mv\t<old_path> <new_path>"
 
     def __init__(self, args: list[str], socket: socket.socket) -> None:
         super().__init__(socket)

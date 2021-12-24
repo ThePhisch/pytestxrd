@@ -5,7 +5,7 @@ import functions
 from functions.chmod import Chmod
 from functions.mv import Mv
 from functions.ping import Ping
-from functions.testfunc import Testfunc
+from functions.dir import Dir
 from core.connect import login
 
 class UI:
@@ -37,7 +37,7 @@ class UI:
             case ["chmod", *args]:
                 obj = Chmod(args, self.socket)
             case ["testfunc", *args]:
-                obj = Testfunc(args, self.socket)
+                obj = Dir(args, self.socket)
             case ["help"] | ["help", _]:
                 self.get_help()
             case _:
@@ -57,3 +57,4 @@ class UI:
         """
         for f in functions.funclist:
             print(f.help_str())
+
