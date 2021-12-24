@@ -36,7 +36,7 @@ class UI:
                 obj = Ping(args, self.socket)
             case ["chmod", *args]:
                 obj = Chmod(args, self.socket)
-            case ["testfunc", *args]:
+            case ["dir", *args]:
                 obj = Dir(args, self.socket)
             case ["help"] | ["help", _]:
                 self.get_help()

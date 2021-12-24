@@ -48,3 +48,21 @@ class Pytestxrd_Base_Function:
             is_ok = False
 
         return is_ok
+
+    @staticmethod
+    def err_number_of_arguments(num: int, wanted: int) -> None:
+        print(f"Check number of arguments: {num}/{wanted} args given")
+
+    @staticmethod
+    def err_number_of_options(num: int, maxi: int) -> None:
+        print(f"Check number of options: {num}/maximum of {maxi} options")
+
+    @staticmethod
+    def check_options_subset(list_opts_given: list[str], opts_allowed: set[str]) -> bool:
+        opts_given = set(list_opts_given)
+        extraneous_opts = opts_given.difference(opts_allowed)
+        if extraneous_opts:
+            print(f"The following options were not recognised: {list(extraneous_opts)}")
+            return False
+        logging.debug(f"All options (given {list_opts_given}) were recognised")
+        return True
