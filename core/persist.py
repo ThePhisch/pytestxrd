@@ -57,7 +57,7 @@ class Persist:
     def ft_entry_exists(self, path_name: str) -> bool:
         is_in: bool = path_name in self.filetable
         if is_in:
-            logging.warning(f"File '{path_name}' is aleady open")
+            logging.debug(f"File '{path_name}' is aleady open")
         else:
             logging.debug(f"File '{path_name}' is not open yet")
         return is_in

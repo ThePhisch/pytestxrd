@@ -10,6 +10,7 @@ from functions.rm import Rm
 from functions.rmdir import Rmdir
 from functions.open import Open
 from functions.close import Close
+from functions.read import Read
 from core.connect import login
 from core.persist import Persist
 
@@ -52,6 +53,8 @@ class UI:
                 obj = Open(args, self.socket, self.persist)
             case ["close", *args]:
                 obj = Close(args, self.socket, self.persist)
+            case ["read", *args]:
+                obj = Read(args, self.socket, self.persist)
             case ["help"] | ["help", _]:
                 self.get_help()
             case _:
