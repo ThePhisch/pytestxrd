@@ -34,19 +34,39 @@ class Pytestxrd_Base_Function:
         """
         logging.debug("Request sent, receiving an answer now...")
         is_ok = True
-        data = self.socket.recv(8)
-        (sid, reqcode, num) = unpack("!HHl", data)
-        logging.debug(f"Streamid={sid}, Response Code={reqcode}, num={num}")
+        data = self.socket.recv(4)
+        (sid, reqcode) = unpack("!HH", data)
+        logging.debug(f"Streamid={sid}, Response Code={reqcode}")
+        if reqcode == request_codes.kXR_error:
+            logging.warning(f"Response Code {reqcode} indicates an error")
+            self.handle_error_response()
+            return False
+        data = self.socket.recv(4)
+        (num,) = unpack("!l", data)
         if sid != general_vals.StreamID:
             logging.warning(f"StreamID {sid} != StreamID")
             is_ok = False
-        if reqcode is not request_codes.kXR_ok:
+        if reqcode != request_codes.kXR_ok:
             logging.warning(f"Response Code {reqcode} != kXR_ok")
             is_ok = False
-        if num is not 0:
+        if num != 0:
             logging.warning(f"Number {num} != 0")
             is_ok = False
         return is_ok
+
+    def handle_error_response(self) -> None:
+        """
+        Handles the response if kXR_error is returned
+
+        -> stream has been read up to kXR_error
+        -> begin reading from dlen
+        """
+        data = self.socket.recv(8)
+        (dlen, errnum) = unpack("!ll", data)
+        logging.debug(f"Dlen={dlen}, Errnum={errnum}")
+        data = self.socket.recv(dlen - 4)
+        errmsg: bytes = unpack(f"!{dlen - 4}s", data)[0]
+        print(errmsg.decode("UTF-8"))
 
     @staticmethod
     def err_number_of_arguments(num: int, wanted: int) -> None:

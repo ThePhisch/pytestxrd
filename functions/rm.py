@@ -27,6 +27,12 @@ class Rm(Pytestxrd_Base_Function):
         """
         Send the rm request to the server
 
+        As of right now, the following behaviour has been emulated
+        from the perl original
+        -> rm may delete folders
+        -> rmdir may not delete files
+        -> empty folders may not be deleted
+
         also includes validation using check_response_ok
         """
         plen = len(self.path)
