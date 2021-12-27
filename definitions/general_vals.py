@@ -19,6 +19,7 @@ pageSize = 16 * 1024
 maxOffset = 256 * 1024
 
 defaultInFileName = "/dev/zero"
-defaultOutFileName = "/dev/null"
+# defaultOutFileName = "/dev/null"
+defaultOutFileName = "/tmp/pythonout.txt"
 maxValidLength = 64 * 1024
 maxValidOffset = 2 ** 31 - 1

@@ -13,7 +13,7 @@ class Read(Pytestxrd_Base_Function):
 
     @staticmethod
     def help_str() -> str:
-        return "open\t<path> [<mode>]"
+        return "read\t<path> <offset> [*|<length>]"
 
     def __init__(self, args: list[str], socket: socket.socket, persist: Persist) -> None:
         super().__init__(socket)
@@ -70,8 +70,12 @@ class Read(Pytestxrd_Base_Function):
             args,
         )
 
-
+        # prepare loop
         reqcode = request_codes.kXR_oksofar
+        with open(general_vals.defaultOutFileName, "wb") as out_file:
+            out_file.write(b"")
+
+        # loop while data is not complete
         while reqcode == request_codes.kXR_oksofar:
             # Receive response
             logging.debug("Request sent, receiving an answer now...")
@@ -90,7 +94,11 @@ class Read(Pytestxrd_Base_Function):
             dlen = unpack("!l", self.socket.recv(4))[0]
             data = unpack(f"!{dlen}s", self.socket.recv(dlen))[0]
             logging.debug(f"dlen={dlen}")
-            print(data)
+            # print(data)
+            # write to file
+            with open(general_vals.defaultOutFileName, "ab") as out_file:
+                out_file.write(data)
+            
 
         logging.info("Read completed.")
         return
