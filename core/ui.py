@@ -8,6 +8,7 @@ from functions.ping import Ping
 from functions.dir import Dir
 from functions.rm import Rm
 from functions.rmdir import Rmdir
+from functions.open import Open
 from core.connect import login
 
 class UI:
@@ -44,6 +45,8 @@ class UI:
                 obj = Rm(args, self.socket)
             case ["rmdir", *args]:
                 obj = Rmdir(args, self.socket)
+            case ["open", *args]:
+                obj = Open(args, self.socket)
             case ["help"] | ["help", _]:
                 self.get_help()
             case _:

@@ -6,7 +6,8 @@ from functions.chmod import Chmod
 from functions.dir import Dir
 from functions.rm import Rm
 from functions.rmdir import Rmdir
+from functions.open import Open
 
 DerivedClass = TypeVar("DerivedClass", bound=Pytestxrd_Base_Function)
 
-funclist: list[Type[DerivedClass]] = [Dir, Mv, Chmod, Ping, Rm, Rmdir]  # type: ignore
+funclist: list[Type[DerivedClass]] = [Dir, Mv, Chmod, Ping, Rm, Rmdir, Open]  # type: ignore
