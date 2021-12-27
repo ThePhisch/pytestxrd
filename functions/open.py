@@ -23,6 +23,11 @@ class Open(Pytestxrd_Base_Function):
                 self.mode = "644"
                 self.persist = persist
                 self.run()
+            case [path, mode]:
+                self.path = path
+                self.mode = mode 
+                self.persist = persist
+                self.run()
             case _:
                 self.err_number_of_arguments(len(args), 1)
             # TODO add options
