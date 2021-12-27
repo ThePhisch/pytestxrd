@@ -46,7 +46,6 @@ class Pytestxrd_Base_Function:
         if num is not 0:
             logging.warning(f"Number {num} != 0")
             is_ok = False
-
         return is_ok
 
     @staticmethod
@@ -58,7 +57,9 @@ class Pytestxrd_Base_Function:
         print(f"Check number of options: {num}/maximum of {maxi} options")
 
     @staticmethod
-    def check_options_subset(list_opts_given: list[str], opts_allowed: set[str]) -> bool:
+    def check_options_subset(
+        list_opts_given: list[str], opts_allowed: set[str]
+    ) -> bool:
         opts_given = set(list_opts_given)
         extraneous_opts = opts_given.difference(opts_allowed)
         if extraneous_opts:

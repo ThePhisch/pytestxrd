@@ -1,0 +1,44 @@
+import logging
+import socket
+from core.connect import send
+from definitions import request_codes
+from functions.function_baseclass import Pytestxrd_Base_Function
+
+
+class Rmdir(Pytestxrd_Base_Function):
+    """
+    Implements Rmdir
+    """
+
+    @staticmethod
+    def help_str() -> str:
+        return "rmdir\t<path>"
+
+    def __init__(self, args: list[str], socket: socket.socket) -> None:
+        super().__init__(socket)
+        if len(args) == 1:
+            self.path = args[0]
+            self.run()
+        else:
+            self.err_number_of_arguments(len(args), 1)
+
+    def run(self) -> None:
+        """
+        Send the rmdir request to the server
+
+        -> except for the different request code, this
+        is functionally the same as rm
+
+        also includes validation using check_response_ok
+        """
+        plen = len(self.path)
+        args = (
+            request_codes.kXR_rmdir,
+            b"\0" * 16,
+            plen,
+            self.path.encode("UTF-8"),
+        )
+        send(self.socket, f"!H16sl{plen}s", args)
+
+        if self.check_response_ok():
+            logging.info("rmdir succeeded.")

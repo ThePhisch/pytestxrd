@@ -6,6 +6,8 @@ from functions.chmod import Chmod
 from functions.mv import Mv
 from functions.ping import Ping
 from functions.dir import Dir
+from functions.rm import Rm
+from functions.rmdir import Rmdir
 from core.connect import login
 
 class UI:
@@ -38,6 +40,10 @@ class UI:
                 obj = Chmod(args, self.socket)
             case ["dir", *args]:
                 obj = Dir(args, self.socket)
+            case ["rm", *args]:
+                obj = Rm(args, self.socket)
+            case ["rmdir", *args]:
+                obj = Rmdir(args, self.socket)
             case ["help"] | ["help", _]:
                 self.get_help()
             case _:

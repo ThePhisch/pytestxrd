@@ -1,0 +1,42 @@
+import logging
+import socket
+from core.connect import send
+from definitions import request_codes
+from functions.function_baseclass import Pytestxrd_Base_Function
+
+
+class Rm(Pytestxrd_Base_Function):
+    """
+    Implements Rm
+    """
+
+    @staticmethod
+    def help_str() -> str:
+        return "rm\t<path>"
+
+    def __init__(self, args: list[str], socket: socket.socket) -> None:
+        super().__init__(socket)
+        if len(args) == 1:
+            self.path = args[0]
+            logging.debug(f"rm will be operated on {self.path}")
+            self.run()
+        else:
+            self.err_number_of_arguments(len(args), 1)
+
+    def run(self) -> None:
+        """
+        Send the rm request to the server
+
+        also includes validation using check_response_ok
+        """
+        plen = len(self.path)
+        args = (
+            request_codes.kXR_rm,
+            b"\0" * 16,
+            plen,
+            self.path.encode("UTF-8"),
+        )
+        send(self.socket, f"!H16sl{plen}s", args)
+
+        if self.check_response_ok():
+            logging.info("rm succeeded.")
