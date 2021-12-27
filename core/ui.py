@@ -10,6 +10,7 @@ from functions.rm import Rm
 from functions.rmdir import Rmdir
 from functions.open import Open
 from core.connect import login
+from core.persist import Persist
 
 class UI:
     """
@@ -19,11 +20,12 @@ class UI:
     Also includes logic on which command to execute
     """
 
-    def __init__(self, hostname: str, port: int, session_id: str, socket: socket.socket) -> None:
+    def __init__(self, hostname: str, port: int, session_id: str, socket: socket.socket, persist: Persist) -> None:
         self.hostname = hostname
         self.port = port
         self.socket = socket
         self.session_id = session_id
+        self.persist = persist
         print(f"Login PID: {os.getpid()} Session ID: {self.session_id}")
         return
 
@@ -46,7 +48,7 @@ class UI:
             case ["rmdir", *args]:
                 obj = Rmdir(args, self.socket)
             case ["open", *args]:
-                obj = Open(args, self.socket)
+                obj = Open(args, self.socket, self.persist)
             case ["help"] | ["help", _]:
                 self.get_help()
             case _:

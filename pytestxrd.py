@@ -10,12 +10,14 @@ Main file of pytestxrd: testing utility for xrootd (rewritten from perl)
 from core.connect import connect_xrootd, login
 from core.args import cli_args
 from core.ui import UI
+from core.persist import Persist
 
 args_passed = cli_args()
+persistor = Persist()
 
 with connect_xrootd(*args_passed) as s:
     session_id = login(s)
-    ui = UI(*args_passed, session_id, s)
+    ui = UI(*args_passed, session_id, s, persistor)
     while True:
         try:
             ui.prompt()
