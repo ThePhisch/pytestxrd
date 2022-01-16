@@ -97,6 +97,7 @@ class Read(Pytestxrd_Base_Function):
             # print(data)
             # write to file
             with open(general_vals.defaultOutFileName, "ab") as out_file:
+                logging.debug(f"Writing to file {general_vals.defaultOutFileName}")
                 out_file.write(data)
             
 

@@ -102,9 +102,9 @@ class Pytestxrd_Base_Function:
         flags_set: set[int] = set()
 
         for access_group, value in enumerate(mode_intlist):
-            print(f"~incremented, starting at {value}~")
+            # print(f"~incremented, starting at {value}~")
             while value > 0:
-                print(f"Position={value}")
+                # print(f"Position={value}")
                 if value - 4 >= 0:
                     value = value - 4
                     if access_group == 0:
@@ -113,7 +113,7 @@ class Pytestxrd_Base_Function:
                         flags_set.add(request_codes.kXR_gr)
                     elif access_group == 2:
                         flags_set.add(request_codes.kXR_or)
-                    print(4)
+                    # print(4)
                 if value - 2 >= 0:
                     value = value - 2
                     if access_group == 0:
@@ -122,7 +122,7 @@ class Pytestxrd_Base_Function:
                         flags_set.add(request_codes.kXR_gw)
                     elif access_group == 2:
                         flags_set.add(request_codes.kXR_ow)
-                    print(2)
+                    # print(2)
                 if value - 1 >= 0:
                     value = value - 1
                     if access_group == 0:
@@ -131,7 +131,7 @@ class Pytestxrd_Base_Function:
                         flags_set.add(request_codes.kXR_gx)
                     elif access_group == 2:
                         flags_set.add(request_codes.kXR_ox)
-                    print(1)
+                    # print(1)
         logging.debug(f"Following flags were requested by user: {flags_set}")
         flags_removed = flags_set.intersection(forbidden_flags)
         if flags_removed:
